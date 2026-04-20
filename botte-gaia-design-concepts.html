@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Botte Gaia - Proposte Design</title>
+  <style>
+    :root {
+      --bg: #f6f0e7;
+      --surface: rgba(255, 252, 247, 0.88);
+      --text: #231815;
+      --muted: #6d5a52;
+      --line: rgba(35, 24, 21, 0.12);
+      --wine: #7a2e2f;
+      --terracotta: #b55d3d;
+      --sage: #78856d;
+      --night: #243142;
+      --gold: #b69257;
+      --shadow: 0 18px 50px rgba(35, 24, 21, 0.12);
+      --radius: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(182, 146, 87, 0.12), transparent 30%),
+        radial-gradient(circle at top right, rgba(122, 46, 47, 0.09), transparent 28%),
+        linear-gradient(180deg, #fbf8f3 0%, var(--bg) 100%);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0 56px;
+    }
+
+    .hero {
+      padding: 44px;
+      border-radius: 36px;
+      background:
+        linear-gradient(135deg, rgba(122, 46, 47, 0.92), rgba(36, 49, 66, 0.9)),
+        #422c2d;
+      color: #fffaf5;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -80px -100px auto;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: rgba(255, 245, 228, 0.1);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 14px;
+      border: 1px solid rgba(255, 250, 245, 0.22);
+      border-radius: 999px;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    h1, h2, h3, p {
+      margin: 0;
+    }
+
+    .hero h1 {
+      max-width: 13ch;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      line-height: 0.95;
+      margin-bottom: 18px;
+    }
+
+    .hero p {
+      max-width: 62ch;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: rgba(255, 250, 245, 0.86);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 0.9fr;
+      gap: 24px;
+      align-items: end;
+    }
+
+    .hero-panel {
+      padding: 22px;
+      border-radius: 24px;
+      background: rgba(255, 250, 245, 0.08);
+      backdrop-filter: blur(6px);
+    }
+
+    .hero-panel strong {
+      display: block;
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      margin: 36px 0 18px;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+    }
+
+    .section-copy {
+      max-width: 72ch;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .concept-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .concept-top {
+      min-height: 220px;
+      padding: 24px;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .concept-top span {
+      display: inline-flex;
+      align-self: flex-start;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .concept-top h3 {
+      font-size: 1.9rem;
+      line-height: 1.02;
+      max-width: 10ch;
+    }
+
+    .classic {
+      background:
+        linear-gradient(180deg, rgba(122, 46, 47, 0.3), rgba(122, 46, 47, 0.94)),
+        linear-gradient(135deg, #d5bf9a, #7a2e2f);
+    }
+
+    .piazza {
+      background:
+        linear-gradient(180deg, rgba(36, 49, 66, 0.18), rgba(36, 49, 66, 0.92)),
+        linear-gradient(135deg, #dfb38d, #243142);
+    }
+
+    .rustic {
+      background:
+        linear-gradient(180deg, rgba(39, 33, 27, 0.24), rgba(39, 33, 27, 0.9)),
+        linear-gradient(135deg, #d8c2a2, #3f3327);
+    }
+
+    .concept-body {
+      padding: 22px;
+    }
+
+    .concept-body p {
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 18px;
+    }
+
+    .label {
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .palette {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .swatch {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.72);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    .meta {
+      display: grid;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .meta strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 0.98rem;
+    }
+
+    .meta div {
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 0.97rem;
+    }
+
+    .recommendation {
+      padding: 22px 24px;
+      margin-top: 26px;
+      border-radius: 22px;
+      background: rgba(255, 252, 247, 0.82);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .recommendation strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+    }
+
+    .recommendation p {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .qr-showcase {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .qr-card,
+    .phone {
+      background: rgba(255, 252, 247, 0.84);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .qr-card {
+      padding: 26px;
+    }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .feature {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(122, 46, 47, 0.05);
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .feature strong {
+      display: block;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .phone {
+      padding: 14px;
+    }
+
+    .phone-screen {
+      background: linear-gradient(180deg, #fffdf9 0%, #f7efe6 100%);
+      border-radius: 28px;
+      padding: 18px;
+      min-height: 520px;
+      border: 1px solid rgba(35, 24, 21, 0.08);
+    }
+
+    .phone-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .phone-title {
+      font-size: 1.6rem;
+      margin-bottom: 8px;
+    }
+
+    .chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      background: #efe4d5;
+      color: #5f4536;
+    }
+
+    .menu-item {
+      padding: 14px 0;
+      border-top: 1px solid rgba(35, 24, 21, 0.08);
+    }
+
+    .menu-item strong {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .menu-item p {
+      color: var(--muted);
+      font-size: 0.94rem;
+      line-height: 1.5;
+    }
+
+    .footer-note {
+      margin-top: 30px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .concept-grid,
+      .qr-showcase {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        width: min(100% - 20px, 1180px);
+        padding-top: 20px;
+      }
+
+      .hero {
+        padding: 28px;
+        border-radius: 28px;
+      }
+
+      .feature-list {
+        grid-template-columns: 1fr;
+      }
+
+      .concept-top {
+        min-height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">Botte Gaia • Reggio Emilia</div>
+          <h1>Tre direzioni per un sito che vive bene anche da QR code</h1>
+          <p>
+            Ho costruito queste proposte partendo dal posizionamento che emerge dai riferimenti:
+            cucina emiliana, atmosfera conviviale, centralita di Piazza Fontanesi e consultazione rapida del menu da smartphone.
+          </p>
+        </div>
+        <div class="hero-panel">
+          <strong>Obiettivo pratico</strong>
+          <p>
+            Un sito bello da vedere, ma soprattutto facile da aggiornare e velocissimo da usare al tavolo:
+            scansione QR, menu leggibile, piatti del giorno e informazioni sempre aggiornate.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <h2 class="section-title">Concept di Design</h2>
+    <p class="section-copy">
+      Ogni concept ha una personalita diversa. Il primo valorizza la tradizione con un tono piu elegante, il secondo mette al centro la piazza e la socialita, il terzo punta su autenticita e funzionalita.
+    </p>
+
+    <section class="concept-grid">
+      <article class="concept-card">
+        <div class="concept-top classic">
+          <span>Concept 01</span>
+          <h3>Tradizione Emiliana Elegante</h3>
+        </div>
+        <div class="concept-body">
+          <div class="label">Palette</div>
+          <div class="palette">
+            <div class="swatch" style="background:#f3eadf"></div>
+            <div class="swatch" style="background:#7a2e2f"></div>
+            <div class="swatch" style="background:#78856d"></div>
+            <div class="swatch" style="background:#b69257"></div>
+          </div>
+          <p>
+            Un linguaggio visivo caldo e raffinato, con richiami alla tradizione emiliana reinterpretati in chiave contemporanea.
+            Funziona bene se vuoi dare al locale un tono curato, territoriale e leggermente premium.
+          </p>
+          <div class="meta">
+            <div><strong>Font consigliati</strong>Cormorant Garamond per i titoli, Manrope per interfaccia e testi.</div>
+            <div><strong>Home page</strong>Hero fotografico importante, racconto della cucina del territorio, spazio per taglieri, salumi, primi e vini.</div>
+            <div><strong>Menu QR</strong>Card pulite con prezzo in evidenza, allergeni discreti, piatti firma messi in risalto con badge.</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="concept-card">
+        <div class="concept-top piazza">
+          <span>Concept 02</span>
+          <h3>Piazza Viva</h3>
+        </div>
+        <div class="concept-body">
+          <div class="label">Palette</div>
+          <div class="palette">
+            <div class="swatch" style="background:#f3e9dc"></div>
+            <div class="swatch" style="background:#b55d3d"></div>
+            <div class="swatch" style="background:#243142"></div>
+            <div class="swatch" style="background:#d0a86a"></div>
+          </div>
+          <p>
+            Un design piu dinamico, costruito attorno alla convivialita di Piazza Fontanesi. Fa percepire il locale come un punto d'incontro,
+            con un carattere piu urbano, immediato e accogliente.
+          </p>
+          <div class="meta">
+            <div><strong>Font consigliati</strong>Fraunces per i titoli, Source Sans 3 per la lettura rapida.</div>
+            <div><strong>Home page</strong>Sezioni ritmate, foto di dehors e tavoli, blocchi per aperitivo, cena, prenotazione e mappa.</div>
+            <div><strong>Menu QR</strong>Navigazione a pulsanti grandi, ottima da telefono, ideale per scorrere velocemente le categorie.</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="concept-card">
+        <div class="concept-top rustic">
+          <span>Concept 03</span>
+          <h3>Rustico Moderno</h3>
+        </div>
+        <div class="concept-body">
+          <div class="label">Palette</div>
+          <div class="palette">
+            <div class="swatch" style="background:#efe1cd"></div>
+            <div class="swatch" style="background:#3f3327"></div>
+            <div class="swatch" style="background:#a36f3d"></div>
+            <div class="swatch" style="background:#8b8b72"></div>
+          </div>
+          <p>
+            Meno decorativo, piu essenziale. Punta su matericita, leggibilita e autenticita. Perfetto se vuoi un sito molto pratico,
+            con un'immagine credibile e senza effetti troppo patinati.
+          </p>
+          <div class="meta">
+            <div><strong>Font consigliati</strong>Newsreader per i titoli, Sora o DM Sans per UI e menu.</div>
+            <div><strong>Home page</strong>Layout sobrio con texture leggere, focus su qualita degli ingredienti e informazioni essenziali.</div>
+            <div><strong>Menu QR</strong>Interfaccia minimal, veloce da aggiornare, ottima per piatti del giorno e disponibilita variabili.</div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="recommendation">
+      <strong>Direzione consigliata</strong>
+      <p>
+        Per Botte Gaia consiglierei una sintesi tra <strong>Tradizione Emiliana Elegante</strong> e <strong>Piazza Viva</strong>:
+        mantiene il calore dell'osteria, valorizza la posizione in piazza e resta molto forte sul mobile. E la combinazione piu adatta
+        se il sito deve convincere sia chi cerca il locale online sia chi apre il menu tramite QR code direttamente al tavolo.
+      </p>
+    </section>
+
+    <h2 class="section-title">Esperienza Menu via QR</h2>
+    <p class="section-copy">
+      Il menu non dovrebbe essere un PDF bloccato, ma una pagina web mobile-first aggiornata in tempo reale. Questo approccio migliora usabilita, velocita e facilita di gestione.
+    </p>
+
+    <section class="qr-showcase">
+      <div class="qr-card">
+        <div class="meta">
+          <div><strong>Struttura ideale</strong>Antipasti, taglieri, primi, secondi, pizze o proposte del locale, dolci, vini, bevande.</div>
+          <div><strong>Aggiornamenti rapidi</strong>Piatti esauriti, novita del giorno, variazioni prezzo e disponibilita gestite da un pannello semplice.</div>
+          <div><strong>Dettagli utili</strong>Allergeni, opzioni vegetariane, piatti tipici, ingredienti stagionali e suggerimenti di abbinamento.</div>
+        </div>
+        <div class="feature-list">
+          <div class="feature">
+            <strong>Consultazione immediata</strong>
+            Bottoni grandi, categorie visibili e nessun pinch-to-zoom necessario.
+          </div>
+          <div class="feature">
+            <strong>Perfetto da smartphone</strong>
+            Pensato prima per il tavolo e poi per desktop, non il contrario.
+          </div>
+          <div class="feature">
+            <strong>Piatti del giorno</strong>
+            Un blocco evidenziato in alto aiuta il locale a spingere le proposte piu fresche.
+          </div>
+          <div class="feature">
+            <strong>Info utili sempre presenti</strong>
+            Orari, indirizzo, telefono, prenotazione e mappa in fondo a ogni pagina.
+          </div>
+        </div>
+      </div>
+
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="phone-top">
+            <span>12:30</span>
+            <span>Menu digitale</span>
+          </div>
+          <h3 class="phone-title">Botte Gaia</h3>
+          <p class="section-copy" style="margin:0 0 14px; font-size:0.94rem;">
+            Cucina emiliana in Piazza Fontanesi
+          </p>
+          <div class="chips">
+            <div class="chip">Antipasti</div>
+            <div class="chip">Primi</div>
+            <div class="chip">Taglieri</div>
+            <div class="chip">Vini</div>
+          </div>
+          <div class="menu-item">
+            <strong><span>Antipasto Reggiano</span><span>9,00 €</span></strong>
+            <p>Salame di montagna, Parmigiano Reggiano 24 mesi, erbazzone artigianale.</p>
+          </div>
+          <div class="menu-item">
+            <strong><span>Erbazzone Artigianale</span><span>4,00 €</span></strong>
+            <p>Il classico della tradizione, ideale da condividere o come apertura di tavola.</p>
+          </div>
+          <div class="menu-item">
+            <strong><span>Passatelli al Ragù di Salsiccia</span><span>13,00 €</span></strong>
+            <p>Piatto simbolo da valorizzare come proposta della casa o del giorno.</p>
+          </div>
+          <div class="menu-item">
+            <strong><span>Lambrusco del Territorio</span><span>5,50 €</span></strong>
+            <p>Abbinamento suggerito per taglieri, salumi e primi emiliani.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <p class="footer-note">
+      File creato come base di lavoro locale. Se vuoi, nel passo successivo posso trasformare il concept scelto in una vera homepage
+      responsive con menu digitale e impostazione pronta per il QR code.
+    </p>
+  </main>
+</body>
+</html>

@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Botte Gaia | Area admin prototipo</title>
+  <style>
+    :root {
+      --bg: #f3ede5;
+      --surface: rgba(255, 250, 244, 0.92);
+      --surface-strong: #fffaf4;
+      --text: #241816;
+      --muted: #6d5951;
+      --wine: #7b2e33;
+      --terracotta: #b76643;
+      --line: rgba(36, 24, 22, 0.1);
+      --shadow: 0 18px 50px rgba(58, 35, 31, 0.12);
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --container: min(1120px, calc(100% - 28px));
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(123, 46, 51, 0.1), transparent 30%),
+        linear-gradient(180deg, #fcf8f3 0%, var(--bg) 100%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    .container {
+      width: var(--container);
+      margin: 0 auto;
+      padding: 24px 0 40px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .topbar h1,
+    .panel h2,
+    .menu-card h3 {
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .topbar h1 {
+      margin: 0 0 6px;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 0.95;
+    }
+
+    .topbar p,
+    .panel p,
+    .status,
+    label span {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .button-row,
+    .link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .button,
+    .ghost-button,
+    .link-button,
+    .small-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 12px 18px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 160ms ease, background 160ms ease, color 160ms ease, border-color 160ms ease;
+    }
+
+    .button,
+    .small-button {
+      background: var(--wine);
+      color: #fff8f1;
+      box-shadow: var(--shadow);
+    }
+
+    .ghost-button,
+    .link-button {
+      background: rgba(255, 250, 244, 0.72);
+      border-color: var(--line);
+      color: var(--text);
+    }
+
+    .small-button {
+      padding: 9px 14px;
+      font-size: 0.92rem;
+    }
+
+    .grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .panel,
+    .menu-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+
+    .panel h2 {
+      margin: 0 0 10px;
+      font-size: 1.8rem;
+      line-height: 1.02;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    label {
+      display: grid;
+      gap: 8px;
+    }
+
+    label strong {
+      font-size: 0.98rem;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(36, 24, 22, 0.12);
+      background: var(--surface-strong);
+      color: var(--text);
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .status {
+      margin-top: 12px;
+      font-size: 0.95rem;
+    }
+
+    .menu-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .menu-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.4rem;
+      line-height: 1.02;
+    }
+
+    .menu-card-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .menu-card .form-grid {
+      margin-top: 0;
+    }
+
+    .muted-box {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(123, 46, 51, 0.05);
+      border: 1px solid rgba(123, 46, 51, 0.08);
+      margin-top: 18px;
+    }
+
+    code {
+      display: block;
+      margin-top: 10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: var(--surface-strong);
+      border: 1px solid rgba(36, 24, 22, 0.08);
+      word-break: break-all;
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 880px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="topbar">
+      <div>
+        <h1>Area admin del prototipo</h1>
+        <p>Da qui puoi aggiornare i dati del ristorante e il menu. Le modifiche vengono salvate nel browser e lette dalla homepage.</p>
+      </div>
+      <div class="link-row">
+        <a class="link-button" href="/C:/Users/massi/Documents/Codex/2026-04-20-vorrei-creare-un-sito-web-per/index.html">Apri il sito</a>
+      </div>
+    </div>
+
+    <div class="grid">
+      <section class="panel">
+        <h2>Informazioni del locale</h2>
+        <p>Questi campi controllano i testi principali della home e il link da associare al QR code.</p>
+        <div class="form-grid">
+          <label>
+            <strong>Nome ristorante</strong>
+            <input id="name" type="text" />
+          </label>
+          <label>
+            <strong>Indirizzo breve</strong>
+            <input id="shortAddress" type="text" />
+          </label>
+          <label>
+            <strong>Indirizzo completo</strong>
+            <input id="fullAddress" type="text" />
+          </label>
+          <label>
+            <strong>Telefono</strong>
+            <input id="phone" type="text" />
+          </label>
+          <label>
+            <strong>Eyebrow hero</strong>
+            <input id="heroEyebrow" type="text" />
+          </label>
+          <label>
+            <strong>Titolo hero</strong>
+            <textarea id="heroTitle"></textarea>
+          </label>
+          <label>
+            <strong>Descrizione hero</strong>
+            <textarea id="heroDescription"></textarea>
+          </label>
+          <label>
+            <strong>Titolo sezione storia</strong>
+            <input id="storyTitle" type="text" />
+          </label>
+          <label>
+            <strong>Descrizione sezione storia</strong>
+            <textarea id="storyDescription"></textarea>
+          </label>
+          <label>
+            <strong>Titolo piatti del giorno</strong>
+            <input id="dailyHighlightTitle" type="text" />
+          </label>
+          <label>
+            <strong>Descrizione piatti del giorno</strong>
+            <textarea id="dailyHighlightDescription"></textarea>
+          </label>
+          <label>
+            <strong>Testo box piatti del giorno</strong>
+            <textarea id="dailyHighlightCopy"></textarea>
+          </label>
+          <label>
+            <strong>Testo identita</strong>
+            <textarea id="identityCopy"></textarea>
+          </label>
+          <label>
+            <strong>Titolo menu</strong>
+            <input id="menuTitle" type="text" />
+          </label>
+          <label>
+            <strong>Descrizione menu</strong>
+            <textarea id="menuDescription"></textarea>
+          </label>
+          <label>
+            <strong>Box menu del giorno</strong>
+            <textarea id="menuDayBox"></textarea>
+          </label>
+          <label>
+            <strong>Titolo contatti</strong>
+            <input id="contactTitle" type="text" />
+          </label>
+          <label>
+            <strong>Descrizione contatti</strong>
+            <textarea id="contactDescription"></textarea>
+          </label>
+          <label>
+            <strong>Link finale del QR</strong>
+            <input id="qrTarget" type="text" />
+            <span>Quando il sito sara online, qui andra inserito il link reale del menu.</span>
+          </label>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Orari e menu</h2>
+        <p>Gli orari si modificano in formato semplice. Per il menu puoi aggiungere, eliminare o cambiare categoria e badge.</p>
+
+        <div class="form-grid">
+          <label>
+            <strong>Orari</strong>
+            <textarea id="hours"></textarea>
+            <span>Un orario per riga nel formato: Giorno | Fascia oraria</span>
+          </label>
+        </div>
+
+        <div class="muted-box">
+          <strong>Target QR corrente</strong>
+          <code id="qr-preview"></code>
+        </div>
+
+        <div class="button-row" style="margin-top:18px;">
+          <button class="button" id="save-button" type="button">Salva modifiche</button>
+          <button class="ghost-button" id="add-menu-item" type="button">Aggiungi piatto</button>
+          <button class="ghost-button" id="reset-button" type="button">Ripristina demo</button>
+        </div>
+        <div class="status" id="status">Nessuna modifica salvata in questa sessione.</div>
+      </section>
+    </div>
+
+    <section class="panel" style="margin-top:20px;">
+      <h2>Piatti del menu</h2>
+      <p>Ogni piatto puo avere nome, categoria, prezzo, descrizione e badge separati da virgola.</p>
+      <div class="menu-list" id="menu-list"></div>
+    </section>
+  </main>
+
+  <script>
+    const STORAGE_KEY = "botte-gaia-site-data";
+
+    const DATA_VERSION = 2;
+
+    const defaultData = {
+      version: DATA_VERSION,
+      restaurant: {
+        name: "Botte Gaia",
+        shortAddress: "Piazza Fontanesi, Reggio Emilia",
+        fullAddress: "Piazza Antonio Fontanesi 10, 42121 Reggio Emilia RE",
+        phone: "+390522420932",
+        heroEyebrow: "Piazza Fontanesi • Reggio Emilia",
+        heroTitle: "Cucina reggiana, nel cuore di Piazza Fontanesi.",
+        heroDescription: "Taglieri, primi della tradizione, vini scelti. Tutto quello che ti aspetti da un'osteria reggiana e il menu sempre sotto mano, anche dal QR code al tavolo.",
+        storyTitle: "Nata come bottega, diventata un posto dove si torna.",
+        storyDescription: "Botte Gaia nasce come salumeria e cresce in un locale a tutti gli effetti, senza perderne l'anima. Due sale in legno, i salumi in vista, la piazza fuori. Un posto che i reggiani conoscono bene e i forestieri scoprono volentieri.",
+        dailyHighlightTitle: "Quello che c'e oggi, subito in evidenza.",
+        dailyHighlightDescription: "Le proposte fresche e stagionali escono ogni giorno. Le trovi in cima, ben distinte dal menu fisso, cosi sai subito cosa non perdere.",
+        dailyHighlightCopy: "Proposte del giorno e disponibilita limitate, aggiornate ogni mattina.",
+        identityCopy: "Taglieri di salumi e formaggi, erbazzone artigianale, primi emiliani e una selezione di vini e birre artigianali. Cucina senza fronzoli, con ingredienti che parlano da soli.",
+        menuTitle: "Menu digitale: leggibile, aggiornato, sempre con te.",
+        menuDescription: "Inquadra il QR code al tavolo e hai tutto il menu sul telefono. Niente file, niente attese. Sfoglialo prima di sederti, o mentre aspetti il vino.",
+        menuDayBox: "Una sezione dedicata raccoglie le proposte fresche del momento e i piatti in disponibilita limitata. Cambiano spesso, conviene guardarla ogni volta.",
+        contactTitle: "Trovaci, chiamaci, prenota un tavolo.",
+        contactDescription: "Siamo in Piazza Fontanesi 10, nel centro di Reggio Emilia. Puoi chiamarci al 0522 420932 oppure scriverci per prenotare. Ti aspettiamo, fuori d'estate, dentro d'inverno.",
+        qrTarget: "#menu"
+      },
+      hours: [
+        { day: "Martedi - Venerdi", time: "12:30-14:30" },
+        { day: "Martedi - Sabato", time: "19:30-23:30" },
+        { day: "Domenica - Lunedi", time: "Chiuso" }
+      ],
+      menuItems: [
+        {
+          name: "Antipasto Reggiano",
+          category: "antipasti",
+          price: "9,00 EUR",
+          description: "Salame di montagna, Parmigiano Reggiano 24 mesi, erbazzone artigianale.",
+          badges: ["Tipico", "Da condividere"]
+        },
+        {
+          name: "Erbazzone Artigianale",
+          category: "antipasti",
+          price: "4,00 EUR",
+          description: "Uno dei simboli del territorio, semplice, diretto e subito riconoscibile.",
+          badges: ["Tradizione", "Vegetariano"]
+        },
+        {
+          name: "Tagliere di Salumi e Formaggi",
+          category: "taglieri",
+          price: "16,00 EUR",
+          description: "Il piatto che sintetizza convivialita, materia prima e atmosfera da tavolo condiviso.",
+          badges: ["Da condividere", "Consigliato"]
+        },
+        {
+          name: "Passatelli al Ragu di Salsiccia",
+          category: "primi",
+          price: "13,00 EUR",
+          description: "Piatto della casa con grande forza narrativa, perfetto da evidenziare tra i suggeriti.",
+          badges: ["Piatto firma"]
+        },
+        {
+          name: "Cappelletti della Botte",
+          category: "primi",
+          price: "14,00 EUR",
+          description: "Una proposta da raccontare con tono piu editoriale, ma sempre leggibile in pochi secondi.",
+          badges: ["Consigliato"]
+        },
+        {
+          name: "Lambrusco del Territorio",
+          category: "vini",
+          price: "5,50 EUR",
+          description: "Un calice facile da abbinare a salumi, formaggi e primi della casa.",
+          badges: ["Calice"]
+        },
+        {
+          name: "Zuppa Inglese della Casa",
+          category: "dolci",
+          price: "6,00 EUR",
+          description: "Finale semplice e riconoscibile, con spazio per dessert classici o del giorno.",
+          badges: ["Dolce della casa"]
+        }
+      ]
+    };
+
+    function clone(value) {
+      return JSON.parse(JSON.stringify(value));
+    }
+
+    function loadData() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return clone(defaultData);
+      try {
+        const parsed = JSON.parse(raw);
+        if (parsed.version !== DATA_VERSION) {
+          return clone(defaultData);
+        }
+        return {
+          version: DATA_VERSION,
+          restaurant: { ...defaultData.restaurant, ...(parsed.restaurant || {}) },
+          hours: Array.isArray(parsed.hours) && parsed.hours.length ? parsed.hours : clone(defaultData.hours),
+          menuItems: Array.isArray(parsed.menuItems) && parsed.menuItems.length ? parsed.menuItems : clone(defaultData.menuItems)
+        };
+      } catch (error) {
+        return clone(defaultData);
+      }
+    }
+
+    let state = loadData();
+
+    const restaurantFields = [
+      "name",
+      "shortAddress",
+      "fullAddress",
+      "phone",
+      "heroEyebrow",
+      "heroTitle",
+      "heroDescription",
+      "storyTitle",
+      "storyDescription",
+      "dailyHighlightTitle",
+      "dailyHighlightDescription",
+      "dailyHighlightCopy",
+      "identityCopy",
+      "menuTitle",
+      "menuDescription",
+      "menuDayBox",
+      "contactTitle",
+      "contactDescription",
+      "qrTarget"
+    ];
+
+    function renderRestaurantFields() {
+      restaurantFields.forEach((field) => {
+        const input = document.getElementById(field);
+        input.value = state.restaurant[field] || "";
+      });
+      document.getElementById("hours").value = state.hours.map((entry) => entry.day + " | " + entry.time).join("\n");
+      document.getElementById("qr-preview").textContent = state.restaurant.qrTarget || "";
+    }
+
+    function renderMenuCards() {
+      const wrap = document.getElementById("menu-list");
+      wrap.innerHTML = "";
+
+      state.menuItems.forEach((item, index) => {
+        const card = document.createElement("article");
+        card.className = "menu-card";
+        card.innerHTML =
+          '<div class="menu-card-header">' +
+          "<h3>Piatto " + (index + 1) + "</h3>" +
+          '<button class="ghost-button remove-item" data-index="' + index + '" type="button">Elimina</button>' +
+          "</div>" +
+          '<div class="form-grid">' +
+          '<label><strong>Nome</strong><input data-field="name" data-index="' + index + '" type="text" value="' + escapeHtml(item.name) + '" /></label>' +
+          '<label><strong>Categoria</strong><select data-field="category" data-index="' + index + '">' +
+          buildCategoryOptions(item.category) +
+          "</select></label>" +
+          '<label><strong>Prezzo</strong><input data-field="price" data-index="' + index + '" type="text" value="' + escapeHtml(item.price) + '" /></label>' +
+          '<label><strong>Descrizione</strong><textarea data-field="description" data-index="' + index + '">' + escapeHtml(item.description) + "</textarea></label>" +
+          '<label><strong>Badge</strong><input data-field="badges" data-index="' + index + '" type="text" value="' + escapeHtml((item.badges || []).join(", ")) + '" /></label>' +
+          "</div>";
+        wrap.appendChild(card);
+      });
+
+      wrap.querySelectorAll("[data-field]").forEach((field) => {
+        field.addEventListener("input", handleMenuEdit);
+      });
+
+      wrap.querySelectorAll(".remove-item").forEach((button) => {
+        button.addEventListener("click", () => {
+          const index = Number(button.dataset.index);
+          state.menuItems.splice(index, 1);
+          renderMenuCards();
+        });
+      });
+    }
+
+    function buildCategoryOptions(selected) {
+      const categories = [
+        ["antipasti", "Antipasti"],
+        ["primi", "Primi"],
+        ["taglieri", "Taglieri"],
+        ["vini", "Vini"],
+        ["dolci", "Dolci"]
+      ];
+      return categories
+        .map(([value, label]) => {
+          const isSelected = value === selected ? ' selected="selected"' : "";
+          return '<option value="' + value + '"' + isSelected + ">" + label + "</option>";
+        })
+        .join("");
+    }
+
+    function handleMenuEdit(event) {
+      const index = Number(event.target.dataset.index);
+      const field = event.target.dataset.field;
+      if (field === "badges") {
+        state.menuItems[index][field] = event.target.value
+          .split(",")
+          .map((entry) => entry.trim())
+          .filter(Boolean);
+        return;
+      }
+      state.menuItems[index][field] = event.target.value;
+    }
+
+    function collectRestaurantFields() {
+      restaurantFields.forEach((field) => {
+        state.restaurant[field] = document.getElementById(field).value.trim();
+      });
+      state.hours = document.getElementById("hours").value
+        .split("\n")
+        .map((line) => line.trim())
+        .filter(Boolean)
+        .map((line) => {
+          const parts = line.split("|");
+          return {
+            day: (parts[0] || "").trim(),
+            time: (parts[1] || "").trim()
+          };
+        })
+        .filter((entry) => entry.day && entry.time);
+    }
+
+    function saveData() {
+      collectRestaurantFields();
+      state.version = DATA_VERSION;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      document.getElementById("qr-preview").textContent = state.restaurant.qrTarget || "";
+      document.getElementById("status").textContent = "Modifiche salvate. Riapri la homepage per vedere il risultato aggiornato.";
+    }
+
+    function resetData() {
+      state = clone(defaultData);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      renderRestaurantFields();
+      renderMenuCards();
+      document.getElementById("status").textContent = "Dati demo ripristinati.";
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;");
+    }
+
+    document.getElementById("save-button").addEventListener("click", saveData);
+    document.getElementById("reset-button").addEventListener("click", resetData);
+    document.getElementById("add-menu-item").addEventListener("click", () => {
+      state.menuItems.push({
+        name: "Nuovo piatto",
+        category: "antipasti",
+        price: "0,00 EUR",
+        description: "Descrizione del piatto.",
+        badges: []
+      });
+      renderMenuCards();
+      document.getElementById("status").textContent = "Nuovo piatto aggiunto. Ricordati di salvare.";
+    });
+
+    renderRestaurantFields();
+    renderMenuCards();
+  </script>
+</body>
+</html>

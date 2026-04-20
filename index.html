@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Botte Gaia | Menu digitale</title>
+  <style>
+    :root {
+      --bg: #f3ede4;
+      --bg-soft: #fbf7f0;
+      --surface: rgba(255, 250, 244, 0.88);
+      --surface-strong: #fffaf4;
+      --text: #231715;
+      --muted: #6d5951;
+      --wine: #7b2e33;
+      --wine-dark: #4e2025;
+      --terracotta: #b86743;
+      --gold: #b7935d;
+      --olive: #6f7b66;
+      --line: rgba(35, 23, 21, 0.1);
+      --shadow: 0 24px 70px rgba(59, 36, 31, 0.16);
+      --radius-xl: 34px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --container: min(1180px, calc(100% - 28px));
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(184, 147, 93, 0.18), transparent 28%),
+        radial-gradient(circle at top right, rgba(123, 46, 51, 0.12), transparent 30%),
+        linear-gradient(180deg, #fffaf5 0%, var(--bg) 100%);
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .container {
+      width: var(--container);
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 30;
+      padding: 16px 0;
+      transition: background 200ms ease, box-shadow 200ms ease, padding 200ms ease;
+    }
+
+    .site-header.is-scrolled {
+      background: rgba(247, 241, 234, 0.84);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 34px rgba(35, 23, 21, 0.08);
+      padding: 10px 0;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      width: 48px;
+      height: 48px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--wine), var(--terracotta));
+      color: #fff8f2;
+      box-shadow: var(--shadow);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.2rem;
+    }
+
+    .brand-copy strong,
+    .hero-copy h1,
+    .section-heading h2,
+    .story-copy h3,
+    .today-copy h3,
+    .menu-heading h2,
+    .contact-copy h3,
+    .menu-item-title {
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .brand-copy strong {
+      display: block;
+      line-height: 1.1;
+    }
+
+    .brand-copy span,
+    .nav-links,
+    .eyebrow,
+    .hero-copy p,
+    .section-copy,
+    .story-copy p,
+    .today-copy p,
+    .menu-copy,
+    .menu-item p,
+    .contact-copy p,
+    .contact-meta,
+    .footer-copy,
+    .photo-caption {
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .brand-copy span {
+      font-size: 0.92rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 0.95rem;
+    }
+
+    .button,
+    .ghost-button,
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 999px;
+      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease, color 160ms ease;
+    }
+
+    .button,
+    .ghost-button {
+      padding: 12px 18px;
+    }
+
+    .button {
+      background: var(--wine);
+      color: #fff8f2;
+      box-shadow: var(--shadow);
+    }
+
+    .ghost-button {
+      background: rgba(255, 248, 242, 0.12);
+      color: #fff8f2;
+      border: 1px solid rgba(255, 248, 242, 0.18);
+    }
+
+    .button:hover,
+    .ghost-button:hover,
+    .chip:hover {
+      transform: translateY(-1px);
+    }
+
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      align-items: end;
+      position: relative;
+      color: #fff8f2;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(28, 19, 18, 0.18) 0%, rgba(28, 19, 18, 0.36) 38%, rgba(28, 19, 18, 0.82) 100%),
+        url("https://commons.wikimedia.org/wiki/Special:FilePath/Piazza%20Fontanesi-%20Reggio%20Emilia%204.jpg") center/cover no-repeat;
+      transform: scale(1.04);
+      animation: heroZoom 18s ease-in-out infinite alternate;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 180px;
+      background: linear-gradient(180deg, rgba(243, 237, 228, 0) 0%, var(--bg) 100%);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      width: var(--container);
+      margin: 0 auto;
+      padding: 120px 0 64px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 24px;
+      align-items: end;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+      color: rgba(255, 248, 242, 0.9);
+      border: 1px solid rgba(255, 248, 242, 0.16);
+      background: rgba(255, 248, 242, 0.08);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+    }
+
+    .hero-copy h1 {
+      margin: 0 0 18px;
+      font-size: clamp(3rem, 7vw, 6.3rem);
+      line-height: 0.92;
+      max-width: 9ch;
+      text-wrap: balance;
+    }
+
+    .hero-copy p {
+      margin: 0;
+      max-width: 60ch;
+      color: rgba(255, 248, 242, 0.84);
+      font-size: 1.08rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .hero-card {
+      align-self: end;
+      justify-self: end;
+      width: min(100%, 460px);
+      padding: 18px;
+      border-radius: 28px;
+      background: rgba(255, 248, 242, 0.1);
+      border: 1px solid rgba(255, 248, 242, 0.14);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 12px;
+    }
+
+    .hero-photo-large,
+    .hero-photo-small {
+      position: relative;
+      overflow: hidden;
+      border-radius: 22px;
+      min-height: 180px;
+    }
+
+    .hero-photo-large::before,
+    .hero-photo-small::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 350ms ease;
+    }
+
+    .hero-photo-large::after,
+    .hero-photo-small::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(24, 17, 16, 0.12), rgba(24, 17, 16, 0.52));
+    }
+
+    .hero-card:hover .hero-photo-large::before,
+    .hero-card:hover .hero-photo-small::before {
+      transform: scale(1.06);
+    }
+
+    .hero-photo-large::before {
+      background-image: url("esterno%202.jpg");
+    }
+
+    .hero-photo-small.one::before {
+      background-image: url("tagliere%20salumi.jpg");
+    }
+
+    .hero-photo-small.two::before {
+      background-image: url("vino.jpg");
+    }
+
+    .hero-card .photo-caption {
+      position: absolute;
+      inset: auto 14px 14px 14px;
+      z-index: 1;
+      color: rgba(255, 248, 242, 0.92);
+      font-size: 0.88rem;
+    }
+
+    .ticker-wrap {
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      padding: 12px 0 20px;
+    }
+
+    .ticker {
+      display: flex;
+      gap: 18px;
+      width: max-content;
+      animation: tickerMove 26s linear infinite;
+    }
+
+    .ticker span {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255, 250, 244, 0.72);
+      border: 1px solid rgba(35, 23, 21, 0.08);
+      color: #5f4a42;
+      white-space: nowrap;
+      box-shadow: 0 10px 26px rgba(35, 23, 21, 0.06);
+    }
+
+    .section {
+      padding: 34px 0;
+      position: relative;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 500ms ease, transform 500ms ease;
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-heading {
+      margin-bottom: 22px;
+    }
+
+    .section-tag {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(123, 46, 51, 0.08);
+      color: var(--wine);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      margin-bottom: 12px;
+    }
+
+    .section-heading h2 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 0.98;
+      text-wrap: balance;
+    }
+
+    .section-copy {
+      margin: 0;
+      max-width: 66ch;
+    }
+
+    .story-layout,
+    .today-layout,
+    .gallery-layout,
+    .contact-layout,
+    .footer-layout {
+      display: grid;
+      gap: 22px;
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+
+    .story-copy,
+    .today-panel,
+    .gallery-card,
+    .contact-card,
+    .footer-card,
+    .menu-shell {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+    }
+
+    .story-copy,
+    .today-panel,
+    .gallery-card,
+    .contact-card,
+    .footer-card {
+      padding: 26px;
+    }
+
+    .story-copy h3,
+    .today-copy h3,
+    .contact-copy h3 {
+      margin: 0 0 12px;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      line-height: 1.02;
+      text-wrap: balance;
+    }
+
+    .story-copy p,
+    .today-copy p,
+    .contact-copy p {
+      margin: 0;
+    }
+
+    .story-photos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .story-photo,
+    .today-photo {
+      position: relative;
+      overflow: hidden;
+      min-height: 260px;
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+    }
+
+    .story-photo img,
+    .today-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 350ms ease;
+    }
+
+    .story-photo:hover img,
+    .today-photo:hover img {
+      transform: scale(1.05);
+    }
+
+    .story-photo.tall {
+      min-height: 540px;
+    }
+
+    .today-layout {
+      align-items: stretch;
+    }
+
+    .gallery-layout {
+      grid-template-columns: 0.94fr 1.06fr;
+      align-items: start;
+    }
+
+    .gallery-card {
+      display: grid;
+      gap: 16px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      min-height: 240px;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 320ms ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-item::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(24, 17, 16, 0.06), rgba(24, 17, 16, 0.45));
+    }
+
+    .gallery-caption {
+      position: absolute;
+      inset: auto 14px 14px 14px;
+      z-index: 1;
+      color: rgba(255, 248, 242, 0.94);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .today-panel {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: stretch;
+    }
+
+    .today-copy {
+      display: grid;
+      align-content: start;
+      gap: 12px;
+    }
+
+    .today-box {
+      padding: 18px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(123, 46, 51, 0.08), rgba(184, 147, 93, 0.12));
+      border: 1px solid rgba(123, 46, 51, 0.08);
+      color: #5e473d;
+      line-height: 1.6;
+    }
+
+    .today-items {
+      display: grid;
+      gap: 12px;
+    }
+
+    .today-item {
+      padding: 16px;
+      border-radius: 20px;
+      background: var(--surface-strong);
+      border: 1px solid var(--line);
+    }
+
+    .today-item strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1.02rem;
+    }
+
+    .today-item span {
+      color: var(--muted);
+      font-size: 0.94rem;
+      line-height: 1.5;
+    }
+
+    .menu-section {
+      padding-top: 18px;
+    }
+
+    .menu-shell {
+      padding: 28px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .menu-shell::before {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      right: -80px;
+      top: -100px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(184, 147, 93, 0.16), transparent 70%);
+      pointer-events: none;
+    }
+
+    .menu-heading {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 20px;
+    }
+
+    .menu-heading h2 {
+      margin: 0 0 10px;
+      font-size: clamp(2.2rem, 4vw, 3.6rem);
+      line-height: 0.96;
+      text-wrap: balance;
+    }
+
+    .menu-copy {
+      margin: 0;
+      max-width: 62ch;
+    }
+
+    .menu-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .menu-layout {
+      display: grid;
+      grid-template-columns: 0.84fr 1.16fr;
+      gap: 22px;
+      align-items: start;
+      position: relative;
+      z-index: 1;
+    }
+
+    .menu-side {
+      display: grid;
+      gap: 16px;
+      position: sticky;
+      top: 94px;
+    }
+
+    .menu-side-box {
+      padding: 20px;
+      border-radius: 22px;
+      background: rgba(123, 46, 51, 0.05);
+      border: 1px solid rgba(123, 46, 51, 0.08);
+    }
+
+    .menu-side-box strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    .menu-side-box p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .menu-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .chip {
+      border: 1px solid var(--line);
+      background: #eee2d4;
+      color: #694c40;
+      padding: 10px 14px;
+    }
+
+    .chip.is-active {
+      background: var(--wine);
+      color: #fff8f2;
+      border-color: var(--wine);
+    }
+
+    .menu-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .menu-item {
+      padding: 18px;
+      border-radius: 24px;
+      background: var(--surface-strong);
+      border: 1px solid var(--line);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .menu-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 38px rgba(35, 23, 21, 0.08);
+    }
+
+    .menu-item[hidden] {
+      display: none;
+    }
+
+    .menu-item-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: start;
+      margin-bottom: 8px;
+    }
+
+    .menu-item-title {
+      margin: 0;
+      font-size: 1.2rem;
+      line-height: 1.04;
+    }
+
+    .menu-price {
+      color: var(--wine);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .menu-item p {
+      margin: 0;
+    }
+
+    .menu-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .menu-badge {
+      display: inline-flex;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #efe4d6;
+      color: #684d40;
+      font-size: 0.84rem;
+    }
+
+    .contact-card {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .contact-copy {
+      display: grid;
+      align-content: start;
+      gap: 12px;
+    }
+
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .contact-info-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .contact-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+      font-size: 0.94rem;
+    }
+
+    .contact-meta span {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(111, 123, 102, 0.1);
+      color: #4c5b46;
+    }
+
+    .hours-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed rgba(35, 23, 21, 0.12);
+      color: var(--muted);
+    }
+
+    .footer {
+      padding: 12px 0 42px;
+    }
+
+    .footer-card {
+      padding: 24px;
+    }
+
+    .footer-card strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    .footer-copy {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    @keyframes heroZoom {
+      from {
+        transform: scale(1.02);
+      }
+      to {
+        transform: scale(1.08);
+      }
+    }
+
+    @keyframes tickerMove {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    @media (max-width: 1040px) {
+      .hero-inner,
+      .story-layout,
+      .today-layout,
+      .gallery-layout,
+      .menu-layout,
+      .contact-card,
+      .footer-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        justify-self: stretch;
+      }
+
+      .menu-side {
+        position: static;
+      }
+
+      .menu-heading {
+        grid-template-columns: 1fr;
+      }
+
+      .menu-actions {
+        justify-content: flex-start;
+      }
+
+      .today-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .site-header {
+        position: absolute;
+      }
+
+      .site-header.is-scrolled {
+        position: fixed;
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .hero-inner {
+        padding-top: 124px;
+        padding-bottom: 42px;
+      }
+
+      .hero-copy h1 {
+        max-width: 10ch;
+      }
+
+      .hero-grid,
+      .story-photos,
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .story-photo.tall {
+        min-height: 320px;
+      }
+
+      .menu-shell,
+      .story-copy,
+      .today-panel,
+      .contact-card,
+      .footer-card {
+        padding: 22px;
+      }
+
+      .menu-item-head,
+      .hours-row {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="site-header">
+    <div class="container nav">
+      <a class="brand" href="#top">
+        <div class="brand-mark">BG</div>
+        <div class="brand-copy">
+          <strong id="brand-name">Botte Gaia</strong>
+          <span id="brand-address">Piazza Fontanesi, Reggio Emilia</span>
+        </div>
+      </a>
+      <nav class="nav-links" aria-label="Navigazione principale">
+        <a href="#storia">Il locale</a>
+        <a href="#oggi">Oggi in evidenza</a>
+        <a href="#menu">Menu</a>
+        <a href="#contatti">Contatti</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-copy reveal">
+          <div class="eyebrow" id="hero-eyebrow">Piazza Fontanesi • Reggio Emilia</div>
+          <h1 id="hero-title">Cucina reggiana, nel cuore di Piazza Fontanesi.</h1>
+          <p id="hero-description">
+            Taglieri, primi della tradizione, vini scelti. Tutto quello che ti aspetti da un'osteria reggiana e il menu sempre sotto mano, anche dal QR code al tavolo.
+          </p>
+          <div class="hero-actions">
+            <a class="button" href="#menu">Apri il menu</a>
+            <a class="ghost-button" id="hero-qr-link" href="#menu">Menu al tavolo</a>
+          </div>
+        </div>
+
+        <div class="hero-card reveal">
+          <div class="hero-grid">
+            <div class="hero-photo-large">
+              <div class="photo-caption">L'esterno del locale sotto i portici di Piazza Fontanesi.</div>
+            </div>
+            <div style="display:grid;gap:12px;">
+              <div class="hero-photo-small one">
+                <div class="photo-caption">Taglieri e salumi come firma della casa.</div>
+              </div>
+              <div class="hero-photo-small two">
+                <div class="photo-caption">Lambrusco e tavola, l'atmosfera dell'osteria.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ticker-wrap">
+        <div class="ticker" aria-hidden="true">
+          <span>Taglieri di salumi e formaggi</span>
+          <span>Erbazzone artigianale</span>
+          <span>Primi emiliani</span>
+          <span>Lambrusco e vini scelti</span>
+          <span>Menu sempre aggiornato</span>
+          <span>Piazza Fontanesi</span>
+          <span>Taglieri di salumi e formaggi</span>
+          <span>Erbazzone artigianale</span>
+          <span>Primi emiliani</span>
+          <span>Lambrusco e vini scelti</span>
+          <span>Menu sempre aggiornato</span>
+          <span>Piazza Fontanesi</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="storia">
+      <div class="container story-layout">
+        <article class="story-copy reveal">
+          <div class="section-tag">Storia</div>
+          <h3 id="story-title">Nata come bottega, diventata un posto dove si torna.</h3>
+          <p id="story-description">
+            Botte Gaia nasce come salumeria e cresce in un locale a tutti gli effetti, senza perderne l'anima. Due sale in legno, i salumi in vista, la piazza fuori. Un posto che i reggiani conoscono bene e i forestieri scoprono volentieri.
+          </p>
+        </article>
+        <div class="story-photos reveal">
+          <div class="story-photo tall">
+            <img src="esterno.jpg" alt="Facciata di Botte Gaia" />
+          </div>
+          <div style="display:grid;gap:14px;">
+            <div class="story-photo">
+              <img src="compleanno.jpg" alt="Serata davanti al locale Botte Gaia" />
+            </div>
+            <div class="story-photo">
+              <img src="tavolo%20esterno.jpg" alt="Tavolo esterno da Botte Gaia" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="oggi">
+      <div class="container today-layout">
+        <article class="today-panel reveal">
+          <div class="today-copy">
+            <div class="section-tag">Piatti del giorno</div>
+            <h3 id="daily-highlight-title">Quello che c'e oggi, subito in evidenza.</h3>
+            <p id="daily-highlight-description">
+              Le proposte fresche e stagionali escono ogni giorno. Le trovi in cima, ben distinte dal menu fisso, cosi sai subito cosa non perdere.
+            </p>
+            <div class="today-box" id="daily-highlight-copy">
+              Proposte del giorno e disponibilita limitate, aggiornate ogni mattina.
+            </div>
+          </div>
+          <div class="today-items" id="today-items"></div>
+        </article>
+        <div class="today-photo reveal">
+          <img src="tagliere%20salumi.jpg" alt="Tagliere di salumi e formaggi di Botte Gaia" />
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="piatti">
+      <div class="container gallery-layout">
+        <article class="gallery-card reveal">
+          <div class="section-tag">Dalla cucina</div>
+          <h3 style="margin:0;font-size:clamp(1.9rem,3vw,2.7rem);line-height:1.02;font-family:Georgia, 'Times New Roman', serif;">Piatti, tavola e dettagli che raccontano il locale.</h3>
+          <p class="section-copy">
+            Tra salumi, primi della tradizione, calici e piatti del giorno, la cucina di Botte Gaia si presenta con la stessa immediatezza con cui arriva in tavola.
+          </p>
+        </article>
+        <div class="gallery-grid reveal">
+          <figure class="gallery-item">
+            <img src="cappelletti%20in%20brodo.jpg" alt="Cappelletti in brodo" />
+            <figcaption class="gallery-caption">Cappelletti in brodo, uno dei classici emiliani.</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="primo%20piatto.jpg" alt="Primo piatto di pasta fresca" />
+            <figcaption class="gallery-caption">Primo piatto della casa, materico e generoso.</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="tartare%20di%20carne.jpg" alt="Tartare di carne" />
+            <figcaption class="gallery-caption">Un antipasto curato, semplice e diretto.</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="dolce.jpg" alt="Dolce con gelato e fragole" />
+            <figcaption class="gallery-caption">Il finale: dolce, fresco, da condividere con calma.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section menu-section" id="menu">
+      <div class="container menu-shell reveal">
+        <div class="menu-heading">
+          <div>
+            <div class="section-tag">Identita e menu</div>
+            <h2 id="menu-title">Menu digitale: leggibile, aggiornato, sempre con te.</h2>
+            <p class="menu-copy" id="menu-description">
+              Inquadra il QR code al tavolo e hai tutto il menu sul telefono. Niente file, niente attese. Sfoglialo prima di sederti, o mentre aspetti il vino.
+            </p>
+          </div>
+          <div class="menu-actions">
+            <a class="button" id="menu-qr-link" href="#menu">Apri il menu QR</a>
+            <a class="ghost-button" href="#contatti">Prenota un tavolo</a>
+          </div>
+        </div>
+
+        <div class="menu-layout">
+          <aside class="menu-side">
+            <div class="menu-side-box">
+              <strong>La casa</strong>
+              <p id="identity-copy">
+                Taglieri di salumi e formaggi, erbazzone artigianale, primi emiliani e una selezione di vini e birre artigianali. Cucina senza fronzoli, con ingredienti che parlano da soli.
+              </p>
+            </div>
+            <div class="menu-side-box">
+              <strong>Oggi in menu</strong>
+              <p id="menu-day-box">
+                Una sezione dedicata raccoglie le proposte fresche del momento e i piatti in disponibilita limitata. Cambiano spesso, conviene guardarla ogni volta.
+              </p>
+            </div>
+          </aside>
+
+          <div>
+            <div class="menu-filters" id="menu-filters"></div>
+            <div class="menu-list" id="menu-list"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contatti">
+      <div class="container contact-card reveal">
+        <div class="contact-copy">
+          <div class="section-tag">Contatti</div>
+          <h3 id="contact-title">Trovaci, chiamaci, prenota un tavolo.</h3>
+          <p id="contact-description">
+            Siamo in Piazza Fontanesi 10, nel centro di Reggio Emilia. Puoi chiamarci al 0522 420932 oppure scriverci per prenotare. Ti aspettiamo, fuori d'estate, dentro d'inverno.
+          </p>
+          <div class="contact-actions">
+            <a class="button" id="call-link" href="tel:+390522420932">Chiama</a>
+            <a class="ghost-button" id="maps-link" target="_blank" rel="noreferrer" href="https://maps.google.com/?q=Piazza+Antonio+Fontanesi+10+Reggio+Emilia">Indicazioni</a>
+          </div>
+          <div class="contact-meta" id="contact-meta"></div>
+        </div>
+
+        <div class="contact-info-grid">
+          <div class="menu-side-box">
+            <strong>Orari</strong>
+            <div class="hours-list" id="hours-list"></div>
+          </div>
+          <div class="menu-side-box">
+            <strong>Menu al tavolo</strong>
+            <p>Il QR code puo puntare direttamente a questa pagina, cosi il menu resta sempre leggibile e aggiornato da telefono.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-layout">
+      <div class="footer-card">
+        <strong id="brand-footer-name">Botte Gaia</strong>
+        <p class="footer-copy">Cucina reggiana, piazza viva, menu sempre a portata di mano.</p>
+      </div>
+      <div class="footer-card">
+        <strong>Menu digitale</strong>
+        <p class="footer-copy">Sfoglialo al tavolo con il QR code oppure aprilo direttamente dal sito prima di arrivare.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const STORAGE_KEY = "botte-gaia-site-data";
+
+    const DATA_VERSION = 2;
+
+    const defaultData = {
+      version: DATA_VERSION,
+      restaurant: {
+        name: "Botte Gaia",
+        shortAddress: "Piazza Fontanesi, Reggio Emilia",
+        fullAddress: "Piazza Antonio Fontanesi 10, 42121 Reggio Emilia RE",
+        phone: "+390522420932",
+        heroEyebrow: "Piazza Fontanesi • Reggio Emilia",
+        heroTitle: "Cucina reggiana, nel cuore di Piazza Fontanesi.",
+        heroDescription: "Taglieri, primi della tradizione, vini scelti. Tutto quello che ti aspetti da un'osteria reggiana e il menu sempre sotto mano, anche dal QR code al tavolo.",
+        storyTitle: "Nata come bottega, diventata un posto dove si torna.",
+        storyDescription: "Botte Gaia nasce come salumeria e cresce in un locale a tutti gli effetti, senza perderne l'anima. Due sale in legno, i salumi in vista, la piazza fuori. Un posto che i reggiani conoscono bene e i forestieri scoprono volentieri.",
+        dailyHighlightTitle: "Quello che c'e oggi, subito in evidenza.",
+        dailyHighlightDescription: "Le proposte fresche e stagionali escono ogni giorno. Le trovi in cima, ben distinte dal menu fisso, cosi sai subito cosa non perdere.",
+        dailyHighlightCopy: "Proposte del giorno e disponibilita limitate, aggiornate ogni mattina.",
+        identityCopy: "Taglieri di salumi e formaggi, erbazzone artigianale, primi emiliani e una selezione di vini e birre artigianali. Cucina senza fronzoli, con ingredienti che parlano da soli.",
+        menuTitle: "Menu digitale: leggibile, aggiornato, sempre con te.",
+        menuDescription: "Inquadra il QR code al tavolo e hai tutto il menu sul telefono. Niente file, niente attese. Sfoglialo prima di sederti, o mentre aspetti il vino.",
+        menuDayBox: "Una sezione dedicata raccoglie le proposte fresche del momento e i piatti in disponibilita limitata. Cambiano spesso, conviene guardarla ogni volta.",
+        contactTitle: "Trovaci, chiamaci, prenota un tavolo.",
+        contactDescription: "Siamo in Piazza Fontanesi 10, nel centro di Reggio Emilia. Puoi chiamarci al 0522 420932 oppure scriverci per prenotare. Ti aspettiamo, fuori d'estate, dentro d'inverno.",
+        qrTarget: "#menu"
+      },
+      hours: [
+        { day: "Martedi - Venerdi", time: "12:30-14:30" },
+        { day: "Martedi - Sabato", time: "19:30-23:30" },
+        { day: "Domenica - Lunedi", time: "Chiuso" }
+      ],
+      menuItems: [
+        {
+          name: "Antipasto Reggiano",
+          category: "antipasti",
+          price: "9,00 EUR",
+          description: "Salame di montagna, Parmigiano Reggiano 24 mesi, erbazzone artigianale.",
+          badges: ["Tipico", "Da condividere"]
+        },
+        {
+          name: "Erbazzone Artigianale",
+          category: "antipasti",
+          price: "4,00 EUR",
+          description: "Uno dei simboli del territorio, semplice, diretto e subito riconoscibile.",
+          badges: ["Tradizione", "Vegetariano"]
+        },
+        {
+          name: "Tagliere di Salumi e Formaggi",
+          category: "taglieri",
+          price: "16,00 EUR",
+          description: "Il piatto che sintetizza convivialita, materia prima e atmosfera da tavolo condiviso.",
+          badges: ["Da condividere", "Consigliato"]
+        },
+        {
+          name: "Passatelli al Ragu di Salsiccia",
+          category: "primi",
+          price: "13,00 EUR",
+          description: "Piatto della casa con grande forza narrativa, perfetto da evidenziare tra i suggeriti.",
+          badges: ["Piatto firma"]
+        },
+        {
+          name: "Cappelletti della Botte",
+          category: "primi",
+          price: "14,00 EUR",
+          description: "Una proposta da raccontare con tono piu editoriale, ma sempre leggibile in pochi secondi.",
+          badges: ["Consigliato"]
+        },
+        {
+          name: "Lambrusco del Territorio",
+          category: "vini",
+          price: "5,50 EUR",
+          description: "Un calice facile da abbinare a salumi, formaggi e primi della casa.",
+          badges: ["Calice"]
+        },
+        {
+          name: "Zuppa Inglese della Casa",
+          category: "dolci",
+          price: "6,00 EUR",
+          description: "Finale semplice e riconoscibile, con spazio per dessert classici o del giorno.",
+          badges: ["Dolce della casa"]
+        }
+      ]
+    };
+
+    function deepClone(value) {
+      return JSON.parse(JSON.stringify(value));
+    }
+
+    function loadData() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return deepClone(defaultData);
+      try {
+        const parsed = JSON.parse(raw);
+        if (parsed.version !== DATA_VERSION) {
+          return deepClone(defaultData);
+        }
+        return {
+          version: DATA_VERSION,
+          restaurant: { ...defaultData.restaurant, ...(parsed.restaurant || {}) },
+          hours: Array.isArray(parsed.hours) && parsed.hours.length ? parsed.hours : deepClone(defaultData.hours),
+          menuItems: Array.isArray(parsed.menuItems) && parsed.menuItems.length ? parsed.menuItems : deepClone(defaultData.menuItems)
+        };
+      } catch (error) {
+        return deepClone(defaultData);
+      }
+    }
+
+    function categoryLabel(category) {
+      const labels = {
+        antipasti: "Antipasti",
+        primi: "Primi",
+        taglieri: "Taglieri",
+        vini: "Vini",
+        dolci: "Dolci"
+      };
+      return labels[category] || category;
+    }
+
+    function renderHours(hours) {
+      const list = document.getElementById("hours-list");
+      list.innerHTML = "";
+      hours.forEach((entry) => {
+        const row = document.createElement("div");
+        row.className = "hours-row";
+        row.innerHTML = "<span>" + entry.day + "</span><span>" + entry.time + "</span>";
+        list.appendChild(row);
+      });
+    }
+
+    function renderFilters(items) {
+      const wrap = document.getElementById("menu-filters");
+      const categories = [...new Set(items.map((item) => item.category))];
+      const filters = ["all", ...categories];
+      wrap.innerHTML = "";
+
+      filters.forEach((filter, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "chip" + (index === 0 ? " is-active" : "");
+        button.dataset.filter = filter;
+        button.textContent = filter === "all" ? "Tutto" : categoryLabel(filter);
+        wrap.appendChild(button);
+      });
+    }
+
+    function renderMenu(items) {
+      const list = document.getElementById("menu-list");
+      list.innerHTML = "";
+      items.forEach((item) => {
+        const article = document.createElement("article");
+        article.className = "menu-item";
+        article.dataset.category = item.category;
+
+        const badges = (item.badges || [])
+          .map((badge) => '<span class="menu-badge">' + badge + "</span>")
+          .join("");
+
+        article.innerHTML =
+          '<div class="menu-item-head">' +
+          '<div><h3 class="menu-item-title">' + item.name + "</h3></div>" +
+          '<span class="menu-price">' + item.price + "</span>" +
+          "</div>" +
+          "<p>" + item.description + "</p>" +
+          (badges ? '<div class="menu-meta">' + badges + "</div>" : "");
+
+        list.appendChild(article);
+      });
+    }
+
+    function renderToday(items) {
+      const container = document.getElementById("today-items");
+      container.innerHTML = "";
+
+      const highlighted = items
+        .filter((item) => (item.badges || []).some((badge) => /firma|consigliato|tipico/i.test(badge)))
+        .slice(0, 3);
+
+      const fallback = highlighted.length ? highlighted : items.slice(0, 3);
+
+      fallback.forEach((item) => {
+        const block = document.createElement("div");
+        block.className = "today-item";
+        block.innerHTML = "<strong>" + item.name + " • " + item.price + "</strong><span>" + item.description + "</span>";
+        container.appendChild(block);
+      });
+    }
+
+    function bindFilters() {
+      const buttons = document.querySelectorAll(".chip");
+      const items = document.querySelectorAll(".menu-item");
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const filter = button.dataset.filter;
+          buttons.forEach((entry) => entry.classList.remove("is-active"));
+          button.classList.add("is-active");
+
+          items.forEach((item) => {
+            item.hidden = filter !== "all" && item.dataset.category !== filter;
+          });
+        });
+      });
+    }
+
+    function renderContactMeta(data) {
+      const wrap = document.getElementById("contact-meta");
+      wrap.innerHTML = "";
+      [data.restaurant.fullAddress, data.restaurant.phone, "Prenotazioni consigliate"].forEach((text) => {
+        const tag = document.createElement("span");
+        tag.textContent = text;
+        wrap.appendChild(tag);
+      });
+    }
+
+    function revealOnScroll() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.16 });
+
+      document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
+    }
+
+    function bindHeader() {
+      const header = document.getElementById("site-header");
+      const toggle = () => {
+        header.classList.toggle("is-scrolled", window.scrollY > 24);
+      };
+      toggle();
+      window.addEventListener("scroll", toggle, { passive: true });
+    }
+
+    function renderPage(data) {
+      document.getElementById("brand-name").textContent = data.restaurant.name;
+      document.getElementById("brand-footer-name").textContent = data.restaurant.name;
+      document.getElementById("brand-address").textContent = data.restaurant.shortAddress;
+      document.getElementById("hero-eyebrow").textContent = data.restaurant.heroEyebrow;
+      document.getElementById("hero-title").textContent = data.restaurant.heroTitle;
+      document.getElementById("hero-description").textContent = data.restaurant.heroDescription;
+      document.getElementById("story-title").textContent = data.restaurant.storyTitle;
+      document.getElementById("story-description").textContent = data.restaurant.storyDescription;
+      document.getElementById("daily-highlight-title").textContent = data.restaurant.dailyHighlightTitle;
+      document.getElementById("daily-highlight-description").textContent = data.restaurant.dailyHighlightDescription;
+      document.getElementById("daily-highlight-copy").textContent = data.restaurant.dailyHighlightCopy;
+      document.getElementById("identity-copy").textContent = data.restaurant.identityCopy;
+      document.getElementById("menu-title").textContent = data.restaurant.menuTitle;
+      document.getElementById("menu-description").textContent = data.restaurant.menuDescription;
+      document.getElementById("menu-day-box").textContent = data.restaurant.menuDayBox;
+      document.getElementById("contact-title").textContent = data.restaurant.contactTitle;
+      document.getElementById("contact-description").textContent = data.restaurant.contactDescription;
+      document.getElementById("call-link").href = "tel:" + data.restaurant.phone;
+      document.getElementById("hero-qr-link").href = data.restaurant.qrTarget || "#menu";
+      document.getElementById("menu-qr-link").href = data.restaurant.qrTarget || "#menu";
+      document.getElementById("maps-link").href = "https://maps.google.com/?q=" + encodeURIComponent(data.restaurant.fullAddress);
+
+      renderContactMeta(data);
+      renderHours(data.hours);
+      renderFilters(data.menuItems);
+      renderMenu(data.menuItems);
+      renderToday(data.menuItems);
+      bindFilters();
+      bindHeader();
+      revealOnScroll();
+    }
+
+    renderPage(loadData());
+  </script>
+</body>
+</html>
